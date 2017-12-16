@@ -1,4 +1,4 @@
-# React Native Standard
+# React Native Embryo
 
 - [x] Bugfree Xcode & Android setups for multiple build flavors
 - [x] [React Native Navigation](https://github.com/wix/react-native-navigation)
