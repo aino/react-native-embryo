@@ -1,4 +1,4 @@
-package com.aino.boilerplate;
+package com.aino.embryo;
 
 import android.support.annotation.Nullable;
 

@@ -10,7 +10,7 @@
 ## Get
 
 ```
-git clone git@github.com:aino/app.git <APP_NAME>
+git clone git@github.com:aino/react-native-embryo.git <APP_NAME>
 cd <APP_NAME>
 yarn start
 ```
