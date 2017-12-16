@@ -1,0 +1,92 @@
+#!/bin/bash
+
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+BLUE="\033[0;34m"
+NC="\033[0m"
+
+def_appname=$(echo ${PWD##*/} | tr -d -c '[:alnum:]')
+
+while [[ ! $confirm == [yY] ]]; do
+  warning=0
+  while [[ ! $appname =~ ^[a-zA-Z][a-zA-Z0-9]*$ ]]; do
+    if [[ $warning == 1 ]]; then echo -e "${RED}Error: App name must start with a letter and contain only letters & numbers${NC}"; fi
+    printf "What is the name of your app?\n"
+    read -p "  [$def_appname]: " appname
+    appname=${appname:-$def_appname}
+    warning=1
+  done
+  warning=0
+  lowercase=$(echo $appname | tr 'A-Z' 'a-z')
+  def_bundleid="com.$lowercase"
+  while [[ ! $bundleid =~ ^[a-z]+(\.[a-z]+)+$ ]]; do
+    if [[ $warning == 1 ]]; then echo -e "${RED}Error: The bundle ID must contain only lowercase letters and dots${NC}"; fi
+    printf "What is your app’s bundle ID?\n"
+    read -p "  [$def_bundleid]: " bundleid
+    bundleid=${bundleid:-$def_bundleid}
+    warning=1
+  done
+  read -p "Is (App=$appname, bundleID=$bundleid) correct? (Y/N):"  -n 1 -r confirm
+  echo
+  if [[ ! $confirm == [yY] ]]
+  then
+    def_appname=$appname
+    def_bundleid=$bundleid
+    unset appname
+    unset bundleid
+  fi
+done
+
+directories=(${bundleid//./ })
+
+cd ios
+rm -rf ./*.xcodeproj
+cp -r ./Template/Boilerplate.xcodeproj ./$appname.xcodeproj
+LC_ALL=C find ./$appname.xcodeproj -type f -exec sed -i '' "s/Boilerplate/$appname/g" {} \;
+LC_ALL=C find ./$appname.xcodeproj -type f -exec sed -i '' "s/com.aino.boilerplate/$bundleid/g" {} \;
+cd ..
+printf "${GREEN}\xE2\x9C\x94 Xcode setup${NC}\n"
+
+sed -E -i '' "s/ext.appName = \"[^\"]*\"/ext.appName = \"$appname\"/g" ./android/app/build.gradle
+sed -E -i '' "s/ext.bundleId = \"[^\"]*\"/ext.bundleId = \"$bundleid\"/g" ./android/app/build.gradle
+LC_ALL=C find ./android/app/src/main/java -type f -exec sed -E -i '' "s/package [a-z]+(\.[a-z]+)+/package $bundleid/g" {} \;
+sed -E -i '' "s/package=\"[^\"]*\"/package=\"$bundleid\"/g" ./android/app/src/main/AndroidManifest.xml
+cd android/app/src/main/java
+find . -type f -name *.java -exec mv {} . \;
+rm -r */
+newdir=$(IFS=/; echo "${directories[*]}")
+mkdir -p "$newdir"
+mv *.java $newdir
+cd ../../../../../
+printf "${GREEN}\xE2\x9C\x94 Android setup${NC}\n"
+
+mkdir -p ~/.gradle
+if ! grep -q "BOILERPLATE" ~/.gradle/gradle.properties
+then
+  printf "\n\nBOILERPLATE_RELEASE_STORE_FILE=boilerplate.keystore" >> ~/.gradle/gradle.properties
+  printf "\nBOILERPLATE_RELEASE_KEY_ALIAS=boilerplate" >> ~/.gradle/gradle.properties
+  printf "\nBOILERPLATE_RELEASE_STORE_PASSWORD=123456" >> ~/.gradle/gradle.properties
+  printf "\nBOILERPLATE_RELEASE_KEY_PASSWORD=123456" >> ~/.gradle/gradle.properties
+  printf "\xE2\x9C\x94 Added boilerplate keystore\n"
+fi
+
+sed -i '' "s/\"name\": \".*\"/\"name\": \"${appname}\"/" package.json
+printf "${GREEN}\xE2\x9C\x94 Modified package.json${NC}\n"
+
+yarn
+printf "${GREEN}\xE2\x9C\x94 Installed packages${NC}\n"
+
+react-native link
+printf "${GREEN}\xE2\x9C\x94 Linked packages${NC}\n"
+
+echo 'export default "dev"' > ./env.js
+printf "${GREEN}\xE2\x9C\x94 Set ENV to development${NC}\n"
+
+yarn run flow
+printf "${GREEN}\xE2\x9C\x94 Setup done!${NC}\n"
+
+if [ "$def_appname" != "app" ]; then
+  printf "\xF0\x9F\x8E\x97  ${GREEN}Don't forget to create a new git repo with 'git init'.${NC}\n"
+  rm -rf ./.git
+  # git init && git add . && git commit -m "First commit"
+fi

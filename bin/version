@@ -1,0 +1,44 @@
+#!/bin/bash
+
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+NC="\033[0m"
+
+version=$(defaults read $PWD/ios/app/Info CFBundleShortVersionString)
+build=$(defaults read $PWD/ios/app/Info CFBundleVersion)
+bumped_build=$(($build+1))
+current_version=$version+$build
+default=$version+$bumped_build
+
+while [[ ! $confirm == [yY] ]]; do
+  warning=0
+  while [[ ! $new_version =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}\+[0-9]{1,2}$ ]]; do
+    if [[ $warning == 1 ]]; then echo -e "${RED}Error: version must use semver format \"major.minor.patch+build\"${NC}"; fi
+    printf "Enter a new version (current is $current_version):\n"
+    read -p "  [$default]: " new_version
+    new_version=${new_version:-$default}
+    warning=1
+  done
+  read -p "Is $new_version correct? (Y/N):"  -n 1 -r confirm
+  if [[ $confirm == [nN] ]]
+  then
+    unset new_version
+    echo
+  elif [[ ! $confirm == [yY] ]]
+  then
+    echo -e "${RED}Answer Y or N${NC}";
+  fi
+done
+echo
+
+versions=(${new_version//+/ })
+plutil -replace CFBundleShortVersionString -string ${versions[0]} $PWD/ios/app/Info.plist
+plutil -replace CFBundleVersion -string ${versions[1]} $PWD/ios/app/Info.plist
+printf "${GREEN}\xE2\x9C\x94 Updated Info.plist${NC}\n"
+
+sed -E -i '' "s/ext.versionName = \"[^\"]+\"/ext.versionName = \"$new_version\"/g" ./android/app/build.gradle
+printf "${GREEN}\xE2\x9C\x94 Updated build.gradle${NC}\n"
+
+sed -E -i '' "s/\"version\": \"[^\"]+\"/\"version\": \"$new_version\"/g" ./package.json
+printf "${GREEN}\xE2\x9C\x94 Updated package.json${NC}\n"
+

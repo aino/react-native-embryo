@@ -1,0 +1,102 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "plugins": ["flowtype"],
+  "globals": {
+    "requestAnimationFrame": true,
+    "ErrorUtils": true,
+    "fetch": true,
+    "navigator": true
+  },
+  "rules": {
+    "no-nested-ternary": 1,
+    "no-unused-vars": 1,
+    "comma-dangle": ["error", {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "ignore"
+    }],
+    "no-trailing-spaces": 0,
+    "eol-last": 0,
+    "no-plusplus": 0,
+    "quote-props": 1,
+    "semi": [2, "never"],
+    "max-len": [2, 200, 4],
+    "object-shorthand": 0,
+    "no-use-before-define": 0,
+    "newline-per-chained-call": 0,
+    "react/jsx-boolean-value": [2, "always"],
+    "react/jsx-filename-extension": 0,
+    "react/jsx-tag-spacing": 0,
+    "react/forbid-prop-types": 0,
+    "react/sort-comp": [2, {
+      order: [
+        'type-annotations',
+        'static-methods',
+        'lifecycle',
+        'everything-else',
+        'render'
+      ],
+      groups: {
+        lifecycle: [
+          'displayName',
+          'propTypes',
+          'contextTypes',
+          'childContextTypes',
+          'mixins',
+          'statics',
+          'defaultProps',
+          'state',
+          'constructor',
+          'getDefaultProps',
+          'getInitialState',
+          'getChildContext',
+          'componentWillMount',
+          'componentDidMount',
+          'componentWillReceiveProps',
+          'shouldComponentUpdate',
+          'componentWillUpdate',
+          'componentDidUpdate',
+          'componentWillUnmount'
+        ]
+      }
+    }],
+    "react/no-multi-comp": 0,
+    "flowtype/boolean-style": [2, "boolean"],
+    "flowtype/define-flow-type": 1,
+    "flowtype/delimiter-dangle": 0,
+    "flowtype/generic-spacing": [2, "never"],
+    "flowtype/no-primitive-constructor-types": 2,
+    "flowtype/no-types-missing-file-annotation": 2,
+    "flowtype/no-weak-types": 0,
+    "flowtype/object-type-delimiter": [2, "comma"],
+    "flowtype/require-parameter-type": 2,
+    "flowtype/require-return-type": [0],
+    "flowtype/require-valid-file-annotation": 2,
+    "flowtype/semi": [2, "always"],
+    "flowtype/space-after-type-colon": [2, "always"],
+    "flowtype/space-before-generic-bracket": [2, "never"],
+    "flowtype/space-before-type-colon": [2, "never"],
+    "flowtype/type-id-match": [2, "^.*$"],
+    "flowtype/union-intersection-spacing": [2, "always"],
+    "flowtype/use-flow-type": 1,
+    "flowtype/valid-syntax": 1
+  },
+
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".android.js",
+          ".ios.js"
+        ]
+      }
+    }
+  }
+}
