@@ -15,22 +15,26 @@ cd <APP_NAME>
 yarn start
 ```
 
+An installation wizard will start in the terminal where you should enter your desired App Name (f.ex **CoffeeBreak**) and bundle ID (f.ex **com.company.coffeebreak**):
+
 <img src="https://i.imgur.com/ONgI3jj.gif" width="600px" />
 
 ## At first glance ##
 
 The footprint is small by design! Minimal dependencies and zero UI modules.
 
-- `src/config.js` config file in JSON that also imports the `env` variable.
-- `src/index.js` starting point for ios & android. It contains a basic wrapper around react-native-navigation
-- `src/screens/index.js` is where you define each screen for routing
-- `src/screens/*` is where all your screens are
-- `src/stores/*` contains MobX stores. The only one provided by default is the `exception` class for error handling
-- `src/components/ErrorBoundary` catches and displays custom errors (modify as you wish)
+| File/directory  | Description |
+| --------------- | ------------|
+| `src/config.js` | config file in JSON that also imports the `env` variable |
+| `src/index.js` | starting point for ios & android. It contains a basic wrapper around react-native-navigation |
+| `src/screens/index.js` | is where you define each screen for routing |
+| `src/screens/` | is where all your screens are |
+| `src/stores/` | contains MobX stores. The only one provided by default is the `exception` class for error handling |
+| `src/components/ErrorBoundary` | catches and displays custom errors (modify as you wish) |
 
 ## Building
 
-There are ~~6~~ **5** commands for building from command line:
+You can use yarn commands for building from command line:
 
 ```bash
 yarn run ios              # run ios app for development
@@ -40,7 +44,7 @@ yarn run android:staging  # compile apk for staging
 yarn run android:release  # compile apk for release
 ```
 
-**Note:** Ios Staging must currently be built from within Xcode. Just select `Staging` scheme and press play. You can also build other archives from Xcode or Android Studio.
+**Note:** IOS Staging must currently be built from within Xcode. Just select `Staging` scheme and press play. You can also build other archives from Xcode or Android Studio.
 
 Each build flavor will have it’s own bundle ID so you can have all 3 builds on the same device. 
 
