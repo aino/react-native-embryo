@@ -56,11 +56,6 @@ Each build flavor will have it’s own bundle ID so you can have all 3 builds on
 
 **The display names of `Staging` and `Debug` will have (S) and (D) in it’s name** (you can also add custom app icons for each flavor).
 
-## Environments & configuration
-
-The `PROD` and `DEV` environment variables are imported into the ``config.js`` file, 
-you can use that to write environment-specific code, f.ex ``if (config.DEV) { // do DEV specific things }``
-
 ## Versioning
 
 Versions should follow the semver pattern `major.minor.patch+build` (f.ex 1.8.2+62) for best compatibility.
@@ -69,13 +64,9 @@ Versions should follow the semver pattern `major.minor.patch+build` (f.ex 1.8.2+
 
 <img src="https://i.imgur.com/Viybft6.gif" width="600px" />
 
-## Linting & static types
-
-Use ``yarn run flow`` to type-check using flow. To code flow, add ``// @flow`` at the top of the source code. Flow is also used as a pre-commit script.
-
 ## Exceptions & logging
 
-Use **3 levels** of exceptions from the `stores/exception` store:
+The embryo strategy is that `console` should be used for console output and not in-app messaging. So you can still use `console.error` and `console.warning` to print messages in the console, but if you want to raise an exception, you can use  **3 levels** of exceptions from the `stores/exception` store:
 
 ```javascript
 import exception from 'stores/exception'
@@ -107,6 +98,19 @@ We added some simple Modals as a default.
 In `DEV`, we use the built-in standard red screen for errors, a slightly customized warnings list and nice logs in the console.
 
 **Bonus:** use `exception.todo(task)` when developing to save time!
+
+### Error reporting ###
+
+You can add your own preferred reporting service (f.ex BugSnag) in the `Exception.reportError` function. All exceptions will pass through here.
+
+## Environments & configuration
+
+The `PROD` and `DEV` environment variables are imported into the ``config.js`` file, 
+you can use that to write environment-specific code, f.ex ``if (config.DEV) { // do DEV specific things }``
+
+## Linting & static types
+
+Use ``yarn run flow`` to type-check using flow. To code flow, add ``// @flow`` at the top of the source code. Flow is also used as a pre-commit script.
 
 ## The Aino rules
 
