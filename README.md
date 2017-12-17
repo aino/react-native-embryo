@@ -21,7 +21,7 @@ An installation wizard will start in the terminal where you should enter your de
 
 **That’s it!** now you can test your embryo using `yarn run ios` or `yarn run android`. You will find a very simple demo app presenting native navigation and exception handling: 
 
-| DEV | PROD |
+| Development | Production |
 |-----|------|
 | <img src="https://i.imgur.com/Td2KVqU.gif" width="300px"> | <img src="https://i.imgur.com/ZSOGvEb.gif" width="300px" /> |
 
