@@ -63,7 +63,7 @@ you can use that to write environment-specific code, f.ex ``if (config.DEV) { //
 
 ## Versioning
 
-Versions should follow the semver pattern `major.minor.patch+build` (f.ex 1.8.2+62) for best compability.
+Versions should follow the semver pattern `major.minor.patch+build` (f.ex 1.8.2+62) for best compatibility.
 
 **Use ``yarn run v`` to automatically bump or apply new versions on all platforms and package.json.**
 
