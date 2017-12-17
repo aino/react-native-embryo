@@ -66,7 +66,9 @@ Versions should follow the semver pattern `major.minor.patch+build` (f.ex 1.8.2+
 
 ## Exceptions & logging
 
-The embryo strategy is that `console` should be used for console output and not in-app messaging. So you can still use `console.error` and `console.warning` to print messages in the console, but if you want to raise an exception, you can use  **3 levels** of exceptions from the `stores/exception` store:
+The embryo strategy is that `console` should be used for console output and not in-app messaging. 
+
+You can still use `console.error` and `console.warning` to print messages in the console just as in web development, but if you want to raise an exception, you can use  **3 levels** of exceptions from the `stores/exception` store:
 
 ```javascript
 import exception from 'stores/exception'
