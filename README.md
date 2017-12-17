@@ -25,12 +25,12 @@ The footprint is small by design! Minimal dependencies and zero UI modules.
 
 | File/directory  | Description |
 | --------------- | ------------|
-| `src/config.js` | config file in JSON that also imports the `env` variable |
-| `src/index.js` | starting point for ios & android. It contains a basic wrapper around react-native-navigation |
-| `src/screens/index.js` | is where you define each screen for routing |
-| `src/screens/` | is where all your screens are |
-| `src/stores/` | contains MobX stores. The only one provided by default is the `exception` class for error handling |
-| `src/components/ErrorBoundary` | catches and displays custom errors (modify as you wish) |
+| [`src/config.js`](/src/config.js) | config file in JSON that also imports the `env` variable |
+| [`src/index.js`](/src/index.js) | starting point for ios & android. It contains a basic wrapper around react-native-navigation |
+| [`src/screens/index.js`](/src/screens/index.js) | is where you define each screen for routing |
+| [`src/screens/`](/src/screens/) | is where all your screens are |
+| [`src/stores/`](/src/stores/) | contains MobX stores. The only one provided by default is the `exception` class for error handling |
+| [`src/components/ErrorBoundary`](/src/components/ErrorBoundary) | catches and displays custom errors (modify as you wish) |
 
 ## Building
 
