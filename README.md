@@ -30,7 +30,7 @@ The footprint is small by design! Minimal dependencies and zero UI modules.
 | [`src/screens/index.js`](/src/screens/index.js) | is where you define each screen for routing |
 | [`src/screens/`](/src/screens/) | is where all your screens are |
 | [`src/stores/`](/src/stores/) | contains MobX stores. The only one provided by default is the `exception` class for error handling |
-| [`src/components/ErrorBoundary`](/src/components/ErrorBoundary) | catches and displays custom errors (modify as you wish) |
+| [`src/components/ErrorBoundary.js`](/src/components/ErrorBoundary.js) | catches and displays custom errors (modify as you wish) |
 
 ## Building
 
