@@ -66,9 +66,9 @@ Versions should follow the semver pattern `major.minor.patch+build` (f.ex 1.8.2+
 
 ## Exceptions & logging
 
-The embryo strategy is that `console` should be used for console output and not in-app messaging. 
+The embryo strategy is that `console` should be used for console output and not in-app messages. 
 
-You can still use `console.error` and `console.warning` to print messages in the console just as in web development, but if you want to raise an exception, you can use  **3 levels** of exceptions from the `stores/exception` store:
+You can still use `console.error` and `console.warning` to print messages in the console just as in web development, but if you want to raise an exception that *may or may not* be visible to the user, you can use  **3 levels** of exceptions from the `stores/exception` store:
 
 ```javascript
 import exception from 'stores/exception'
@@ -96,6 +96,8 @@ exception.info(new Error('User entered 4 digits'), 'login form')
 
 You can customize how these errors will be shown for the user in `PROD` by editing `components/ErrorBoundary`. 
 We added some simple Modals as a default.
+
+It is also worth noting that **internal react errors and plain syntax errors also will be catched**.
 
 In `DEV`, we use the built-in standard red screen for errors, a slightly customized warnings list and nice logs in the console.
 
