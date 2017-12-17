@@ -15,6 +15,8 @@ cd <APP_NAME>
 yarn start
 ```
 
+<img src="https://i.imgur.com/ONgI3jj.gif" width="600px" />
+
 ## At first glance ##
 
 The footprint is small by design! Minimal dependencies and zero UI modules.
