@@ -1,7 +1,16 @@
 {
   "name": "react-native-embryo",
   "version": "0.1.0+1",
-  "private": true,
+  "description": "The unborn child of react native apps",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aino/react-native-embryo"
+  },
+  "author": "Aino",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/aino/react-native-embryo/issues"
+  },
   "scripts": {
     "start": "./bin/init",
     "v": "./bin/version",
