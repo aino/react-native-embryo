@@ -67,6 +67,8 @@ Versions should follow the semver pattern `major.minor.patch+build` (f.ex 1.8.2+
 
 **Use ``yarn run v`` to automatically bump or apply new versions on all platforms and package.json.**
 
+<img src="https://i.imgur.com/Viybft6.gif" width="600px" />
+
 ## Linting & static types
 
 Use ``yarn run flow`` to type-check using flow. To code flow, add ``// @flow`` at the top of the source code. Flow is also used as a pre-commit script.
