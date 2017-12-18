@@ -1,6 +1,6 @@
 # React Native Embryo
 
-- [x] Bugfree Xcode & Android setups for multiple build flavors
+- [x] Bug-free Xcode & Android setups for multiple build flavors
 - [x] [React Native Navigation](https://github.com/wix/react-native-navigation)
 - [x] [MobX](https://github.com/mobxjs/mobx)
 - [x] Friendly exception handling (no crash :dizzy_face:)
@@ -66,7 +66,7 @@ Versions should follow the semver pattern `major.minor.patch+build` (f.ex 1.8.2+
 
 ## Exceptions & logging
 
-The embryo strategy is that `console` should be used for console output and not in-app messages. 
+The embryo strategy is that **`console` should be used for console output and not in-app messages**. 
 
 You can still use `console.error` and `console.warning` to print messages in the console just as in web development, but if you want to raise an exception that *may or may not* be visible to the user, you can use  **3 levels** of exceptions from the `stores/exception` store:
 
@@ -94,6 +94,10 @@ exception.info(new Error('User entered 4 digits'), 'login form')
 
 ```
 
+You should never deploy apps with errors. But if you do – make sure you catch them, show a friendly message and report the error so it can be fixed in the next patch!
+
+### Customized errors ###
+
 You can customize how these errors will be shown for the user in `PROD` by editing `components/ErrorBoundary`. 
 We added some simple Modals as a default.
 
@@ -101,11 +105,11 @@ It is also worth noting that **internal react errors and plain syntax errors als
 
 In `DEV`, we use the built-in standard red screen for errors, a slightly customized warnings list and nice logs in the console.
 
-**Bonus:** use `exception.todo(task)` when developing to save time!
-
 ### Error reporting ###
 
 You can add your own preferred reporting service (f.ex BugSnag) in the `Exception.reportError` function. All exceptions will pass through here.
+
+**Bonus:** use `exception.todo(task)` when developing to save time!
 
 ## Environments & configuration
 
