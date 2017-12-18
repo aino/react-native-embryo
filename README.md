@@ -15,20 +15,32 @@ cd <APP_NAME>
 yarn start
 ```
 
+An installation wizard will start in the terminal where you should enter your desired App Name (f.ex **CoffeeBreak**) and bundle ID (f.ex **com.company.coffeebreak**):
+
+<img src="https://i.imgur.com/ONgI3jj.gif" width="600px" />
+
+**That’s it!** now you can test your embryo using `yarn run ios` or `yarn run android`. You will find a very simple demo app presenting native navigation and exception handling: 
+
+| Development | Production |
+|-----|------|
+| <img src="https://i.imgur.com/Td2KVqU.gif" width="300px"> | <img src="https://i.imgur.com/ZSOGvEb.gif" width="300px" /> |
+
 ## At first glance ##
 
 The footprint is small by design! Minimal dependencies and zero UI modules.
 
-- `src/config.js` config file in JSON that also imports the `env` variable.
-- `src/index.js` starting point for ios & android. It contains a basic wrapper around react-native-navigation
-- `src/screens/index.js` is where you define each screen for routing
-- `src/screens/*` is where all your screens are
-- `src/stores/*` contains MobX stores. The only one provided by default is the `exception` class for error handling
-- `src/components/ErrorBoundary` catches and displays custom errors (modify as you wish)
+| File/directory  | Description |
+| --------------- | ------------|
+| [`src/config.js`](/src/config.js) | config file in JSON that also imports the `env` variable |
+| [`src/index.js`](/src/index.js) | starting point for ios & android. It contains a basic wrapper around react-native-navigation |
+| [`src/screens/index.js`](/src/screens/index.js) | is where you define each screen for routing |
+| [`src/screens/`](/src/screens/) | is where all your screens are |
+| [`src/stores/`](/src/stores/) | contains MobX stores. The only one provided by default is the `exception` class for error handling |
+| [`src/components/ErrorBoundary.js`](/src/components/ErrorBoundary.js) | catches and displays custom errors (modify as you wish) |
 
 ## Building
 
-There are ~~6~~ **5** commands for building from command line:
+You can use yarn commands for building from command line:
 
 ```bash
 yarn run ios              # run ios app for development
@@ -38,30 +50,25 @@ yarn run android:staging  # compile apk for staging
 yarn run android:release  # compile apk for release
 ```
 
-**Note:** Ios Staging must currently be built from within Xcode. Just select `Staging` scheme and press play. You can also build other archives from Xcode or Android Studio.
+**Note:** IOS Staging must currently be built from within Xcode. Just select `Staging` scheme and press play. You can also build other archives from Xcode or Android Studio.
 
 Each build flavor will have it’s own bundle ID so you can have all 3 builds on the same device. 
 
 **The display names of `Staging` and `Debug` will have (S) and (D) in it’s name** (you can also add custom app icons for each flavor).
 
-## Environments & configuration
-
-The `PROD` and `DEV` environment variables are imported into the ``config.js`` file, 
-you can use that to write environment-specific code, f.ex ``if (config.DEV) { // do DEV specific things }``
-
 ## Versioning
 
-Versions should follow the semver pattern `major.minor.patch+build` (f.ex 1.8.2+62) for best compability.
+Versions should follow the semver pattern `major.minor.patch+build` (f.ex 1.8.2+62) for best compatibility.
 
 **Use ``yarn run v`` to automatically bump or apply new versions on all platforms and package.json.**
 
-## Linting & static types
-
-Use ``yarn run flow`` to type-check using flow. To code flow, add ``// @flow`` at the top of the source code. Flow is also used as a pre-commit script.
+<img src="https://i.imgur.com/Viybft6.gif" width="600px" />
 
 ## Exceptions & logging
 
-Use **3 levels** of exceptions from the `stores/exception` store:
+The embryo strategy is that `console` should be used for console output and not in-app messages. 
+
+You can still use `console.error` and `console.warning` to print messages in the console just as in web development, but if you want to raise an exception that *may or may not* be visible to the user, you can use  **3 levels** of exceptions from the `stores/exception` store:
 
 ```javascript
 import exception from 'stores/exception'
@@ -90,9 +97,24 @@ exception.info(new Error('User entered 4 digits'), 'login form')
 You can customize how these errors will be shown for the user in `PROD` by editing `components/ErrorBoundary`. 
 We added some simple Modals as a default.
 
+It is also worth noting that **internal react errors and plain syntax errors also will be catched**.
+
 In `DEV`, we use the built-in standard red screen for errors, a slightly customized warnings list and nice logs in the console.
 
 **Bonus:** use `exception.todo(task)` when developing to save time!
+
+### Error reporting ###
+
+You can add your own preferred reporting service (f.ex BugSnag) in the `Exception.reportError` function. All exceptions will pass through here.
+
+## Environments & configuration
+
+The `PROD` and `DEV` environment variables are imported into the ``config.js`` file, 
+you can use that to write environment-specific code, f.ex ``if (config.DEV) { // do DEV specific things }``
+
+## Linting & static types
+
+Use ``yarn run flow`` to type-check using flow. To code flow, add ``// @flow`` at the top of the source code. Flow is also used as a pre-commit script.
 
 ## The Aino rules
 
