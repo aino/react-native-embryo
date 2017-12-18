@@ -96,7 +96,7 @@ exception.info(new Error('User entered 4 digits'), 'login form')
 
 You should never deploy apps with errors. But if you do – make sure you catch them, show a friendly message and report the error so it can be fixed in the next patch!
 
-### Customized errors ###
+### Customized errors
 
 You can customize how these errors will be shown for the user in `PROD` by editing `components/ErrorBoundary`. 
 We added some simple Modals as a default.
@@ -105,7 +105,7 @@ It is also worth noting that **internal react errors and plain syntax errors als
 
 In `DEV`, we use the built-in standard red screen for errors, a slightly customized warnings list and nice logs in the console.
 
-### Error reporting ###
+### Error reporting
 
 You can add your own preferred reporting service (f.ex BugSnag) in the `Exception.reportError` function. All exceptions will pass through here.
 
@@ -115,6 +115,12 @@ You can add your own preferred reporting service (f.ex BugSnag) in the `Exceptio
 
 The `PROD` and `DEV` environment variables are imported into the ``config.js`` file, 
 you can use that to write environment-specific code, f.ex ``if (config.DEV) { // do DEV specific things }``
+
+## Android specific deployment info
+
+The embryo automatically adds a temporary `react-native-embryo.keystore` for production prototyping in `~/.gradle/gradle.properties`. You should change this before deploying a real app.
+
+The gradle script will automatically increase it’s `versionCode` when the version has changed (use `yarn run v`), so no need to edit manually. It will also rename the `.apk` file according to it’s version.
 
 ## Linting & static types
 
