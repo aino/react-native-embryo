@@ -1,18 +1,28 @@
 #!/bin/bash
 
+function task {
+  printf "${GREEN}\xE2\x9C\x94${NONE} ${LIGHT_GREY}$1${NONE}\n"
+}
+
 RED="\033[0;31m"
 GREEN="\033[0;32m"
-BLUE="\033[0;34m"
-NC="\033[0m"
+BLUE="\033[01;36m"
+GREY="\e[38;5;242m"
+LIGHT_GREY="\033[1;30m"
+BOLD="\033[1m"
+NONE="\e[0m"
 
 def_appname=$(echo ${PWD##*/} | tr -d -c '[:alnum:]')
+
+printf "\nThis utility walks you through creating a React Native embryo App.\n"
+printf "Press ^C at any time to quit.\n\n"
 
 while [[ ! $confirm == [yY] ]]; do
   warning=0
   while [[ ! $appname ]]; do
-    if [[ $warning == 1 ]]; then echo -e "${RED}Error: App name must not be empty${NC}"; fi
-    printf "What is the name of your app?\n"
-    read -p "  [$def_appname]: " appname
+    if [[ $warning == 1 ]]; then echo -e "${RED}App name must not be empty${NONE}"; fi
+    printf "${GREEN}?${NONE} ${BOLD}Choose a name for your App:${NONE} ${GREY}[$def_appname]${NONE} "
+    read -r appname
     appname=${appname:-$def_appname}
     warning=1
   done
@@ -20,13 +30,14 @@ while [[ ! $confirm == [yY] ]]; do
   lowercase=$(echo $appname | tr 'A-Z' 'a-z')
   def_bundleid="com.$lowercase"
   while [[ ! $bundleid =~ ^[a-z]+(\.[a-z]+)+$ ]]; do
-    if [[ $warning == 1 ]]; then echo -e "${RED}Error: The bundle ID must contain only lowercase letters and dots${NC}"; fi
-    printf "What is your app’s bundle ID?\n"
-    read -p "  [$def_bundleid]: " bundleid
+    if [[ $warning == 1 ]]; then echo -e "${RED}The bundle ID must contain only lowercase letters and dots${NONE}"; fi
+    printf "${GREEN}?${NONE} ${BOLD}Choose a bundle ID:${NONE} ${GREY}[$def_bundleid]${NONE} "
+    read -r bundleid
     bundleid=${bundleid:-$def_bundleid}
     warning=1
   done
-  read -p "Is (App=$appname, bundleID=$bundleid) correct? (Y/N):"  -n 1 -r confirm
+  printf "${BOLD}Is (App=$appname, bundleID=$bundleid) correct? (Y/N):${NONE}"  
+  read -n 1 -r confirm
   echo
   if [[ ! $confirm == [yY] ]]
   then
@@ -37,56 +48,59 @@ while [[ ! $confirm == [yY] ]]; do
   fi
 done
 
-directories=(${bundleid//./ })
+task $bundleid
 
-cd ios
-rm -rf ./*.xcodeproj
-cp -r ./Template/react-native-embryo.xcodeproj ./$appname.xcodeproj
-LC_ALL=C find ./$appname.xcodeproj -type f -exec sed -i '' "s/react-native-embryo/$appname/g" {} \;
-LC_ALL=C find ./$appname.xcodeproj -type f -exec sed -i '' "s/com.aino.embryo/$bundleid/g" {} \;
-cd ..
-printf "${GREEN}\xE2\x9C\x94 Xcode setup${NC}\n"
-
-sed -E -i '' "s/ext.appName = \"[^\"]*\"/ext.appName = \"$appname\"/g" ./android/app/build.gradle
-sed -E -i '' "s/ext.bundleId = \"[^\"]*\"/ext.bundleId = \"$bundleid\"/g" ./android/app/build.gradle
-LC_ALL=C find ./android/app/src/main/java -type f -exec sed -E -i '' "s/package [a-z]+(\.[a-z]+)+/package $bundleid/g" {} \;
-sed -E -i '' "s/package=\"[^\"]*\"/package=\"$bundleid\"/g" ./android/app/src/main/AndroidManifest.xml
-cd android/app/src/main/java
-find . -type f -name *.java -exec mv {} . \;
-rm -r */
-newdir=$(IFS=/; echo "${directories[*]}")
-mkdir -p "$newdir"
-mv *.java $newdir
-cd ../../../../../
-printf "${GREEN}\xE2\x9C\x94 Android setup${NC}\n"
-
-mkdir -p ~/.gradle
-if ! grep -q "EMBRYO" ~/.gradle/gradle.properties
-then
-  printf "\n\nREACT_NATIVE_EMBRYO_RELEASE_STORE_FILE=react-native-embryo.keystore" >> ~/.gradle/gradle.properties
-  printf "\nREACT_NATIVE_EMBRYO_RELEASE_KEY_ALIAS=react-native-embryo" >> ~/.gradle/gradle.properties
-  printf "\nREACT_NATIVE_EMBRYO_RELEASE_STORE_PASSWORD=123456" >> ~/.gradle/gradle.properties
-  printf "\nREACT_NATIVE_EMBRYO_RELEASE_KEY_PASSWORD=123456" >> ~/.gradle/gradle.properties
-  printf "${GREEN}\xE2\x9C\x94 Added embryo keystore${NC}\n"
-fi
-
-sed -i '' "s/\"name\": \".*\"/\"name\": \"${appname}\"/" package.json
-printf "${GREEN}\xE2\x9C\x94 Modified package.json${NC}\n"
-
-yarn
-printf "${GREEN}\xE2\x9C\x94 Installed packages${NC}\n"
-
-react-native link
-printf "${GREEN}\xE2\x9C\x94 Linked packages${NC}\n"
-
-echo 'export default "dev"' > ./env.js
-printf "${GREEN}\xE2\x9C\x94 Set ENV to development${NC}\n"
-
-yarn run flow
-printf "${GREEN}\xE2\x9C\x94 Setup done!${NC}\n"
-
-if [ "${PWD##*/}" != "react-native-embryo" ]; then
-  printf "\xF0\x9F\x8E\x97  ${GREEN}Don't forget to create a new git repo with 'git init'.${NC}\n"
-  rm -rf ./.git
-  # git init && git add . && git commit -m "First commit"
-fi
+# directories=(${bundleid//./ })
+# 
+# cd ios
+# rm -rf ./*.xcodeproj
+# cp -r ./Template/react-native-embryo.xcodeproj ./$appname.xcodeproj
+# LC_ALL=C find ./$appname.xcodeproj -type f -exec sed -i '' "s/react-native-embryo/$appname/g" {} \;
+# LC_ALL=C find ./$appname.xcodeproj -type f -exec sed -i '' "s/com.aino.embryo/$bundleid/g" {} \;
+# cd ..
+# printf "${GREEN}\xE2\x9C\x94 Xcode setup${NONE}\n"
+# 
+# sed -E -i '' "s/ext.appName = \"[^\"]*\"/ext.appName = \"$appname\"/g" ./android/app/build.gradle
+# sed -E -i '' "s/ext.bundleId = \"[^\"]*\"/ext.bundleId = \"$bundleid\"/g" ./android/app/build.gradle
+# LC_ALL=C find ./android/app/src/main/java -type f -exec sed -E -i '' "s/package [a-z]+(\.[a-z]+)+/package $bundleid/g" {} \;
+# sed -E -i '' "s/package=\"[^\"]*\"/package=\"$bundleid\"/g" ./android/app/src/main/AndroidManifest.xml
+# cd android/app/src/main/java
+# find . -type f -name *.java -exec mv {} . \;
+# rm -r */
+# newdir=$(IFS=/; echo "${directories[*]}")
+# mkdir -p "$newdir"
+# mv *.java $newdir
+# cd ../../../../../
+# printf "${GREEN}\xE2\x9C\x94 Android setup${NONE}\n"
+# 
+# mkdir -p ~/.gradle
+# if ! grep -q "EMBRYO" ~/.gradle/gradle.properties
+# then
+#   printf "\n\nREACT_NATIVE_EMBRYO_RELEASE_STORE_FILE=react-native-embryo.keystore" >> ~/.gradle/gradle.properties
+#   printf "\nREACT_NATIVE_EMBRYO_RELEASE_KEY_ALIAS=react-native-embryo" >> ~/.gradle/gradle.properties
+#   printf "\nREACT_NATIVE_EMBRYO_RELEASE_STORE_PASSWORD=123456" >> ~/.gradle/gradle.properties
+#   printf "\nREACT_NATIVE_EMBRYO_RELEASE_KEY_PASSWORD=123456" >> ~/.gradle/gradle.properties
+#   printf "${GREEN}\xE2\x9C\x94 Added embryo keystore${NONE}\n"
+# fi
+# 
+# sed -i '' "s/\"name\": \".*\"/\"name\": \"${appname}\"/" package.json
+# printf "${GREEN}\xE2\x9C\x94 Modified package.json${NONE}\n"
+# 
+# yarn
+# printf "${GREEN}\xE2\x9C\x94 Installed packages${NONE}\n"
+# 
+# react-native link
+# printf "${GREEN}\xE2\x9C\x94 Linked packages${NONE}\n"
+# 
+# echo 'export default "dev"' > ./env.js
+# printf "${GREEN}\xE2\x9C\x94 Set ENV to development${NONE}\n"
+# 
+# yarn run flow
+# printf "${GREEN}\xE2\x9C\x94 Setup done!${NONE}\n"
+# 
+# if [ "${PWD##*/}" != "react-native-embryo" ]; then
+#   printf "\xF0\x9F\x8E\x97  ${GREEN}Don't forget to create a new git repo with 'git init'.${NONE}\n"
+#   rm -rf ./.git
+#   # git init && git add . && git commit -m "First commit"
+# fi
+# 
