@@ -7,15 +7,17 @@
 - [x] Centralized versioning - one script to bump’em all
 - [x] Flow-typed & eslint for quality code
 
-## Get
+## Bootstrap time!
+
+This example uses `CoffeBreak` as project name but it could be anything: 
 
 ```
-git clone git@github.com:aino/react-native-embryo.git <APP_NAME>
-cd <APP_NAME>
+git clone git@github.com:aino/react-native-embryo.git CoffeeBreak
+cd CoffeeBreak
 yarn start
 ```
 
-An installation wizard will start in the terminal where you should enter your desired App Name (f.ex **CoffeeBreak**) and bundle ID (f.ex **com.company.coffeebreak**):
+An installation wizard will start in the terminal where you should enter your desired App Name (f.ex **CoffeeBreak**) and bundle ID (f.ex **com.aino.coffeebreak**):
 
 <img src="https://i.imgur.com/ONgI3jj.gif" width="600px" />
 
