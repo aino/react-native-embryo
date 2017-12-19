@@ -121,7 +121,7 @@ then
   printf "\nREACT_NATIVE_EMBRYO_RELEASE_KEY_ALIAS=react-native-embryo" >> ~/.gradle/gradle.properties
   printf "\nREACT_NATIVE_EMBRYO_RELEASE_STORE_PASSWORD=123456" >> ~/.gradle/gradle.properties
   printf "\nREACT_NATIVE_EMBRYO_RELEASE_KEY_PASSWORD=123456" >> ~/.gradle/gradle.properties
-  printf "${GREEN}\xE2\x9C\x94 Added embryo keystore${NONE}\n"
+  taskDone "Adding embryo keystore"
 fi
 
 sed -i '' "s/\"name\": \".*\"/\"name\": \"${appname}\"/" package.json
