@@ -9,10 +9,10 @@
 
 ## Bootstrap time!
 
-This example uses `CoffeBreak` as project name but it could be anything: 
+This example uses `CoffeBreak` as project name but it could be anything:
 
 ```
-git clone git@github.com:aino/react-native-embryo.git CoffeeBreak
+git clone https://github.com/aino/react-native-embryo.git CoffeeBreak
 cd CoffeeBreak
 yarn start
 ```
@@ -21,7 +21,7 @@ An installation wizard will start in the terminal where you should enter your de
 
 <img src="https://i.imgur.com/ONgI3jj.gif" width="600px" />
 
-**That’s it!** now you can test your embryo using `yarn run ios` or `yarn run android`. You will find a very simple demo app presenting native navigation and exception handling: 
+**That’s it!** now you can test your embryo using `yarn run ios` or `yarn run android`. You will find a very simple demo app presenting native navigation and exception handling:
 
 | Development | Production |
 |-----|------|
@@ -54,7 +54,7 @@ yarn run android:release  # compile apk for release
 
 **Note:** IOS Staging must currently be built from within Xcode. Just select `Staging` scheme and press play. You can also build other archives from Xcode or Android Studio.
 
-Each build flavor will have it’s own bundle ID so you can have all 3 builds on the same device. 
+Each build flavor will have it’s own bundle ID so you can have all 3 builds on the same device.
 
 **The display names of `Staging` and `Debug` will have (S) and (D) in it’s name** (you can also add custom app icons for each flavor).
 
@@ -68,7 +68,7 @@ Versions should follow the semver pattern `major.minor.patch+build` (f.ex 1.8.2+
 
 ## Exceptions & logging
 
-The embryo strategy is that **`console` should be used for console output and not in-app messages**. 
+The embryo strategy is that **`console` should be used for console output and not in-app messages**.
 
 You can still use `console.error` and `console.warning` to print messages in the console just as in web development, but if you want to raise an exception that *may or may not* be visible to the user, you can use  **3 levels** of exceptions from the `stores/exception` store:
 
@@ -100,7 +100,7 @@ You should never deploy apps with errors. But if you do – make sure you catch 
 
 ### Customized errors
 
-You can customize how these errors will be shown for the user in `PROD` by editing `components/ErrorBoundary`. 
+You can customize how these errors will be shown for the user in `PROD` by editing `components/ErrorBoundary`.
 We added some simple Modals as a default.
 
 It is also worth noting that **internal react errors and plain syntax errors also will be catched**.
@@ -115,7 +115,7 @@ You can add your own preferred reporting service (f.ex BugSnag) in the `Exceptio
 
 ## Environments & configuration
 
-The `PROD` and `DEV` environment variables are imported into the ``config.js`` file, 
+The `PROD` and `DEV` environment variables are imported into the ``config.js`` file,
 you can use that to write environment-specific code, f.ex ``if (config.DEV) { // do DEV specific things }``
 
 ## Android specific deployment info
