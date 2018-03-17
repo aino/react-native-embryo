@@ -46,7 +46,7 @@ You can use yarn commands for building from command line:
 
 ```bash
 yarn run ios              # run ios app for development
-yarn run ios:release      # run ios app for release (PROD)
+yarn run ios:release      # run ios app for release (PRODUCTION)
 yarn run android          # run android app for development
 yarn run android:staging  # compile apk for staging
 yarn run android:release  # compile apk for release
@@ -100,12 +100,12 @@ You should never deploy apps with errors. But if you do – make sure you catch 
 
 ### Customized errors
 
-You can customize how these errors will be shown for the user in `PROD` by editing `components/ErrorBoundary`.
+You can customize how these errors will be shown for the user in `PRODUCTION` by editing `components/ErrorBoundary`.
 We added some simple Modals as a default.
 
 It is also worth noting that **internal react errors and plain syntax errors also will be catched**.
 
-In `DEV`, we use the built-in standard red screen for errors, a slightly customized warnings list and nice logs in the console.
+In `DEVELOPMENT`, we use the built-in standard red screen for errors, a slightly customized warnings list and nice logs in the console.
 
 ### Error reporting
 
@@ -115,8 +115,8 @@ You can add your own preferred reporting service (f.ex BugSnag) in the `Exceptio
 
 ## Environments & configuration
 
-The `PROD` and `DEV` environment variables are imported into the ``config.js`` file,
-you can use that to write environment-specific code, f.ex ``if (config.DEV) { // do DEV specific things }``
+The `PRODUCTION` and `DEVELOPMENT` environment variables are imported into the ``config.js`` file,
+you can use that to write environment-specific code, f.ex ``if (config.DEVELOPMENT) { // do DEVELOPMENT specific things }``
 
 ## Android specific deployment info
 

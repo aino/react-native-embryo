@@ -1,13 +1,13 @@
 // @flow
 
 import * as React from 'react'
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  ScrollView, 
-  Modal, 
-  TouchableOpacity, 
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Modal,
+  TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native'
 import { autobind } from 'core-decorators'
@@ -53,11 +53,11 @@ export default class ErrorBoundary extends React.Component<Props, State> {
     return (
       <View style={{ flex: 1 }} onLayout={this.onLayout}>
         <ScrollView>{this.props.children}</ScrollView>
-        {config.DEV && exception.warnings.length ? (
+        {config.DEVELOPMENT && exception.warnings.length ? (
           <View style={{ height: exception.warnings.length * 45 }}>
             {exception.warnings.map((warning: *, index: number) => (
-              <TouchableOpacity 
-                key={warning.timestamp} 
+              <TouchableOpacity
+                key={warning.timestamp}
                 style={styles.devWarning}
                 onPress={() => { exception.dismissWarning(index) }}
               >
@@ -72,7 +72,7 @@ export default class ErrorBoundary extends React.Component<Props, State> {
         <Modal
           animationType="fade"
           transparent={true}
-          visible={!!(config.PROD && exception.lastWarning)}
+          visible={!!(config.PRODUCTION && exception.lastWarning)}
         >
           <TouchableWithoutFeedback onPress={exception.resetWarnings}>
             <View style={backdropStyles} />
@@ -89,7 +89,7 @@ export default class ErrorBoundary extends React.Component<Props, State> {
         </Modal>
         <Modal
           transparent={true}
-          visible={!!(config.PROD && exception.error)}
+          visible={!!(config.PRODUCTION && exception.error)}
         >
           <View style={backdropStyles} />
           <View style={styles.modalContainer}>

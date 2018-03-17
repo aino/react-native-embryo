@@ -6,8 +6,8 @@ export const screenIds = {
 }
 
 export const envs = {
-  DEV: 'dev',
-  PROD: 'prod',
+  DEVELOPMENT: 'development',
+  PRODUCTION: 'production',
 }
 
 export const platforms = {

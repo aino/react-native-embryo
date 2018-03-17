@@ -22,7 +22,7 @@ class Exception {
   consoleError: (*) => void = console.error // eslint-disable-line no-console
 
   constructor() {
-    /* 
+    /*
      * console settings to allow custom errors
      * In dev, all error levels will be printed in the console
      * ErrorBoundary handles the UI for dev and prod
@@ -30,7 +30,7 @@ class Exception {
     /* eslint-disable no-console */
     // $FlowFixMe
     console.disableYellowBox = true
-    if (config.DEV) {
+    if (config.DEVELOPMENT) {
       // This will still allow console.error in the console, but no red screen will be shown
       // $FlowFixMe
       console.error = (...errors: Array<*>) => {
@@ -58,7 +58,7 @@ class Exception {
     if (this.error) {
       return
     }
-    if (config.PROD) {
+    if (config.PRODUCTION) {
       // Global exceptions can prevent further rendering, so we need to show an alert instead
       Alert.alert(
         'Application Error',
@@ -78,7 +78,7 @@ class Exception {
       return
     }
     this.reportError(err, 'error', context)
-    if (config.DEV) {
+    if (config.DEVELOPMENT) {
       if (context) {
         console.log(`%cError: ${context}`, 'font-weight:bold;color:red') // eslint-disable-line no-console
       }
@@ -96,7 +96,7 @@ class Exception {
   warn(err: Error, context?: string = '') {
     // $FlowFixMe
     const throttled: boolean = this.lastWarning ? Date.now() - this.lastWarning.timestamp < 400 : false
-    if (this.error || (this.lastWarning && isEqual(this.lastWarning.error, err) && (config.PROD || throttled))) {
+    if (this.error || (this.lastWarning && isEqual(this.lastWarning.error, err) && (config.PRODUCTION || throttled))) {
       return
     }
     const warning: errorType = {
@@ -109,7 +109,7 @@ class Exception {
       this.warnings.splice(0, this.warnings.length - MAX_WARNINGS)
     }
     this.reportError(err, 'warning', context)
-    if (config.DEV) {
+    if (config.DEVELOPMENT) {
       console.warn(context, err) // eslint-disable-line no-console
     }
   }
@@ -117,7 +117,7 @@ class Exception {
   @action.bound
   info(err: Error, context?: string = '') { // eslint-disable-line class-methods-use-this
     this.reportError(err, 'info', context)
-    if (config.DEV) {
+    if (config.DEVELOPMENT) {
       console.info(context, err) // eslint-disable-line no-console
     }
   }

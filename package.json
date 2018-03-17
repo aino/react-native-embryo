@@ -14,9 +14,9 @@
   "scripts": {
     "start": "./bin/init",
     "v": "./bin/version",
-    "ios": "echo 'export default \"dev\"' > ./env.js && react-native run-ios --scheme Debug",
-    "ios:release": "echo 'export default \"prod\"' > ./env.js && react-native run-ios --scheme Release --configuration Release",
-    "android": "echo 'export default \"dev\"' > ./env.js && cd android && ./gradlew clean && cd .. && react-native run-android",
+    "ios": "react-native run-ios --scheme Debug",
+    "ios:release": "ENVFILE=.env.production react-native run-ios --scheme Release --configuration Release",
+    "android": "cd android && ./gradlew clean && cd .. && react-native run-android",
     "android:staging": "./bin/android-staging",
     "android:release": "./bin/android-release",
     "flow": "flow-scripts stub && node_modules/.bin/flow | head -50",
@@ -46,6 +46,7 @@
     "prop-types": "^15.6.0",
     "react": "16.0.0",
     "react-native": "^0.50.4",
+    "react-native-config": "^0.11.5",
     "react-native-navigation": "^1.1.300",
     "react-native-restart": "^0.0.6"
   }

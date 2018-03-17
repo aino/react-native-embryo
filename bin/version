@@ -1,44 +1,62 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-RED="\033[0;31m"
-GREEN="\033[0;32m"
-NC="\033[0m"
+P=${BASH_SOURCE%/*}
 
-version=$(defaults read $PWD/ios/app/Info CFBundleShortVersionString)
-build=$(defaults read $PWD/ios/app/Info CFBundleVersion)
+. $P/colors
+. $P/taskrunner
+
+current_version=$(node -p "require('$P/../package.json').version")
+versions=(${current_version//+/ })
+build=${versions[1]}
 bumped_build=$(($build+1))
-current_version=$version+$build
-default=$version+$bumped_build
+default=${versions[0]}+$bumped_build
+bump=false
+
+while getopts 'abf:v' flag; do
+  case "${flag}" in
+    b) bump=true ;;
+    *) exit 1 ;;
+  esac
+done
+
+if $bump
+then
+  green "! "
+  bold "Bumping to $default"
+  echo
+  confirm="y"
+  new_version=$default
+fi
 
 while [[ ! $confirm == [yY] ]]; do
   warning=0
   while [[ ! $new_version =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}\+[0-9]{1,2}$ ]]; do
-    if [[ $warning == 1 ]]; then echo -e "${RED}Error: version must use semver format \"major.minor.patch+build\"${NC}"; fi
-    printf "Enter a new version (current is $current_version):\n"
-    read -p "  [$default]: " new_version
+    if [[ $warning == 1 ]]; then red "Error: version must use semver format \"major.minor.patch+build\"\n"; fi
+    green "? "
+    bold "Enter a new version (current is $current_version): "
+    dark "[$default] "
+    read -r new_version
     new_version=${new_version:-$default}
     warning=1
   done
-  read -p "Is $new_version correct? (Y/N):"  -n 1 -r confirm
+  green "? "
+  bold "Is $new_version correct?"
+  light " (Y/N)"
+  bold ":"
+  read -n 1 -r confirm
+  echo
   if [[ $confirm == [nN] ]]
   then
     unset new_version
-    echo
   elif [[ ! $confirm == [yY] ]]
   then
-    echo -e "${RED}Answer Y or N${NC}";
+    red "Answer Y or N\n";
   fi
 done
-echo
 
-versions=(${new_version//+/ })
-plutil -replace CFBundleShortVersionString -string ${versions[0]} $PWD/ios/app/Info.plist
-plutil -replace CFBundleVersion -string ${versions[1]} $PWD/ios/app/Info.plist
-printf "${GREEN}\xE2\x9C\x94 Updated Info.plist${NC}\n"
+sed -E -i '' "s/versionName \"[^\"]+\"/versionName \"$new_version\"/g" $P/../android/app/build.gradle
+sed -E -i '' "s/versionCode generateVersionCode(.+)/versionCode generateVersionCode(\"$new_version\")/g" $P/../android/app/build.gradle & taskStart "Updating build.gradle"
+taskDone "Updating build.gradle"
 
-sed -E -i '' "s/ext.versionName = \"[^\"]+\"/ext.versionName = \"$new_version\"/g" ./android/app/build.gradle
-printf "${GREEN}\xE2\x9C\x94 Updated build.gradle${NC}\n"
-
-sed -E -i '' "s/\"version\": \"[^\"]+\"/\"version\": \"$new_version\"/g" ./package.json
-printf "${GREEN}\xE2\x9C\x94 Updated package.json${NC}\n"
-
+sed -E -i '' "s/\"version\": \"[^\"]+\"/\"version\": \"$new_version\"/g" $P/../package.json & taskStart "Updating package.json"
+taskDone "Updating package.json"

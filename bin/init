@@ -1,46 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-function red { 
-  printf "\033[0;31m$1\e[0m" 
-}
-function green { 
-  printf "\033[0;32m$1\e[0m" 
-}
-function blue { 
-  printf "\033[0;36m$1\e[0m" 
-}
-function dark { 
-  printf "\e[38;5;242m$1\e[0m" 
-}
-function light { 
-  printf "\033[1;30m$1\e[0m" 
-}
-function bold { 
-  printf "\033[1m$1\e[0m" 
-}
+P=${BASH_SOURCE%/*}
 
-function taskDone {
-  tput cnorm
-  green "\xE2\x9C\x94 "
-  light "$1"
-  echo
-}
-
-function taskStart {
-  PID=$!
-  tput civis
-  spin='∶∴∷∵'
-  i=0
-  while kill -0 $PID 2> /dev/null
-  do
-    i=$(( (i+1) %4 ))
-    printf "\r${spin:$i:1}"
-    dark " $1"
-    sleep .1
-  done
-  printf "\r"
-}
-
+. $P/colors
+. $P/taskrunner
 
 def_appname=$(echo ${PWD##*/} | tr -d -c '[:alnum:]')
 
@@ -132,9 +95,6 @@ taskDone "Installing packages"
 
 react-native link &>/dev/null & taskStart "Linking packages"
 taskDone "Linking packages"
-
-echo 'export default "dev"' > ./env.js
-taskDone "Set ENV to development"
 
 yarn run flow --silent &>/dev/null & taskStart "Initializing flow"
 taskDone "Initializing flow"

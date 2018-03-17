@@ -1,12 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-echo 'export default "prod"' > ./env.js
 react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
 cd android
 rm -rf app/src/main/res/drawable-*
 rm ./app/build/outputs/apk/*
-./gradlew clean 
-./gradlew assembleReleaseStaging --stacktrace --debug --info
+ENVFILE=.env.staging ./gradlew clean
+ENVFILE=.env.staging ./gradlew assembleReleaseStaging --stacktrace --debug --info
 files=( *.apk )
 open ./app/build/outputs/apk/
 adb install -r ./app/build/outputs/apk/${files[0]}
