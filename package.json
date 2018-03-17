@@ -12,16 +12,18 @@
     "url": "https://github.com/aino/react-native-embryo/issues"
   },
   "scripts": {
-    "start": "./bin/init",
-    "v": "./bin/version",
-    "ios": "react-native run-ios --scheme Debug",
-    "ios:release": "ENVFILE=.env.production react-native run-ios --scheme Release --configuration Release",
     "android": "cd android && ./gradlew clean && cd .. && react-native run-android",
-    "android:staging": "./bin/android-staging",
     "android:release": "./bin/android-release",
+    "android:staging": "./bin/android-staging",
+    "clean": "rm -rf $TMPDIR/react-* && watchman watch-del-all && cd android && ./gradlew clean && cd ..",
+    "clean:wipe": "rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf node_modules/* && yarn cache clean && yarn install --check-files && cd android && ./gradlew clean && cd ..",
     "flow": "flow-scripts stub && flow",
     "flow:stop": "flow stop",
-    "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
+    "ios": "react-native run-ios --scheme Debug",
+    "ios:release": "ENVFILE=.env.production react-native run-ios --scheme Release --configuration Release",
+    "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
+    "start": "./bin/init",
+    "v": "./bin/version"
   },
   "pre-commit": [
     "precommit-msg"
