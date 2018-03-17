@@ -61,6 +61,7 @@ rm -rf ./*.xcodeproj
 cp -r ./Template/react-native-embryo.xcodeproj ./$appname.xcodeproj
 LC_ALL=C find ./$appname.xcodeproj -type f -exec sed -i '' "s/react-native-embryo/$appname/g" {} \;
 LC_ALL=C find ./$appname.xcodeproj -type f -exec sed -i '' "s/com.aino.embryo/$bundleid/g" {} \;
+mv ./react-native-embryo "./$appname"
 cd ..
 taskDone "Xcode setup"
 
@@ -105,6 +106,7 @@ if [ "${PWD##*/}" != "react-native-embryo" ]
 then
   blue "✌ Don't forget to create a new git repo with 'git init'\n\n"
   rm -rf ./.git
+  # rm -rf ./ios/Template
 else
   echo
 fi
