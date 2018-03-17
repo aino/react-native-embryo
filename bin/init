@@ -106,7 +106,7 @@ if [ "${PWD##*/}" != "react-native-embryo" ]
 then
   blue "✌ Don't forget to create a new git repo with 'git init'\n\n"
   rm -rf ./.git
-  # rm -rf ./ios/Template
+  rm -rf ./ios/Template
 else
   echo
 fi
