@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
+react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/
 cd android
 rm -rf app/src/main/res/drawable-*
 rm ./app/build/outputs/apk/*

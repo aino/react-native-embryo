@@ -966,7 +966,7 @@
 				13B07FB21A68108700A75B9A /* Base */,
 			);
 			name = LaunchScreen.xib;
-			path = app;
+			path = react-native-embryo;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
