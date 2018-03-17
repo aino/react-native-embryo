@@ -5,7 +5,7 @@
       {
         "rule": "cli",
         "binary": "node",
-        "semver": "8.1.2"
+        "semver": "9.4.0"
       }
     ],
     "Watchman": [
@@ -23,7 +23,7 @@
       {
         "rule": "cli",
         "binary": "react-native",
-        "semver": "0.0.0",
+        "semver": "0.54.2",
         "line": 2
       }
     ],
@@ -44,7 +44,7 @@
       {
         "rule": "cli",
         "binary": "npm",
-        "semver": "5.4.2"
+        "semver": "5.6.0"
       }
     ],
     "Yarn": [
@@ -52,7 +52,7 @@
         "rule": "cli",
         "binary": "yarn",
         "version": "--version",
-        "semver": "1.3.2"
+        "semver": "1.5.1"
       }
     ],
     "Android": [
