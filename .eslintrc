@@ -18,8 +18,6 @@
         "exports": "always-multiline",
         "functions": "ignore"
     }],
-    "no-trailing-spaces": 0,
-    "eol-last": 0,
     "no-plusplus": 0,
     "quote-props": 1,
     "semi": [2, "never"],
