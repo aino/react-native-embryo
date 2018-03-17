@@ -56,7 +56,7 @@ yarn run android:release  # compile apk for release
 
 Each build flavor will have it’s own bundle ID so you can have all 3 builds on the same device.
 
-**The display names of `Staging` and `Debug` will have (S) and (D) in it’s name** (you can also add custom app icons for each flavor).
+**The display names of `Staging` and `Debug` will have (S) and (D) in its name** (you can also add custom app icons for each flavor).
 
 ## Versioning
 

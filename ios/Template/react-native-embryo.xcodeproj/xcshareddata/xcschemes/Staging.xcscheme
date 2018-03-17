@@ -15,7 +15,7 @@
                   <BuildableReference
                      BuildableIdentifier = "primary"
                      BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-                     BuildableName = "react-native-embryo (D).app"
+                     BuildableName = "react-native-embryo (S).app"
                      BlueprintName = "app"
                      ReferencedContainer = "container:react-native-embryo.xcodeproj">
                   </BuildableReference>
@@ -47,7 +47,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "react-native-embryo (D).app"
+               BuildableName = "react-native-embryo (S).app"
                BlueprintName = "app"
                ReferencedContainer = "container:react-native-embryo.xcodeproj">
             </BuildableReference>
@@ -66,7 +66,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "react-native-embryo (D).app"
+            BuildableName = "react-native-embryo (S).app"
             BlueprintName = "app"
             ReferencedContainer = "container:react-native-embryo.xcodeproj">
          </BuildableReference>
@@ -95,7 +95,7 @@
                   <BuildableReference
                      BuildableIdentifier = "primary"
                      BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-                     BuildableName = "react-native-embryo (D).app"
+                     BuildableName = "react-native-embryo (S).app"
                      BlueprintName = "app"
                      ReferencedContainer = "container:react-native-embryo.xcodeproj">
                   </BuildableReference>
@@ -108,7 +108,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "react-native-embryo (D).app"
+            BuildableName = "react-native-embryo (S).app"
             BlueprintName = "app"
             ReferencedContainer = "container:react-native-embryo.xcodeproj">
          </BuildableReference>
@@ -127,7 +127,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "react-native-embryo (D).app"
+            BuildableName = "react-native-embryo (S).app"
             BlueprintName = "app"
             ReferencedContainer = "container:react-native-embryo.xcodeproj">
          </BuildableReference>
