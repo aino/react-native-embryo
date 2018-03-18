@@ -66,6 +66,10 @@ import com.android.build.OutputFile
  * ]
  */
 
+project.ext.react = [
+    entryFile: "index.js"
+]
+
 apply from: "../../node_modules/react-native/react.gradle"
 
 /**
@@ -105,7 +109,7 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
-        resValue "string", "build_config_package", "com.aino.embryo"
+        resValue "string", "build_config_package", project.ext.bundleId
     }
     splits {
         abi {
